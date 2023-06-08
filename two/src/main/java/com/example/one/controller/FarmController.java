@@ -123,7 +123,7 @@ public class FarmController {
 //        return response;
 //    }
 
-    //---------강의동영상
+    //--------- 강의동영상
 //    @GetMapping("/get")
 //    @ResponseBody
 //    public Response getXX(@RequestParam String apiKey) throws Exception {

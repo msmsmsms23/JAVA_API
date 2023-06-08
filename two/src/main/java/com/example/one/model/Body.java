@@ -16,4 +16,7 @@ public class Body {
     //@JacksonXmlElementWrapper(useWrapping = false)
     private List<Item> items;
 
+    @JacksonXmlProperty(localName = "item")
+    @JacksonXmlElementWrapper(useWrapping = false)
+    private Item item;
 }

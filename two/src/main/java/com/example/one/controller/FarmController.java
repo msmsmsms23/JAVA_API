@@ -122,4 +122,26 @@ public class FarmController {
 //        Response response = xmlMapper.readValue(xml, Response.class);
 //        return response;
 //    }
+
+    //---------강의동영상
+//    @GetMapping("/get")
+//    @ResponseBody
+//    public Response getXX(@RequestParam String apiKey) throws Exception {
+//
+//        //apiKey "20230601JKDXVD39FWGMF0PJBPWMA"
+//
+////        String url = "http://api.nongsaro.go.kr/service/lectureDicMvp/lectureDicMvpList"
+////                + "?apiKey=" + apiKey
+//
+//        String url = "http://api.nongsaro.go.kr/service/lectureDicMvp/lectureDicMvpList"
+//                + "?apiKey=" + apiKey;
+//
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        String xml = restTemplate.getForObject(url, String.class);
+//
+//        XmlMapper xmlMapper = new XmlMapper();
+//        Response response = xmlMapper.readValue(xml, Response.class);
+//        return response;
+//    }
 }

@@ -1,0 +1,63 @@
+* {
+    margin:0px;
+    padding:0px;
+}
+/*.header::after{
+    display:block;
+    clear:both;
+    content:"";
+}*/
+
+.header img {
+    float:left;
+    margin: 20px;
+    width: 50px;
+}
+
+.header h3{
+    float:left;
+    padding-top: 30px;
+    font-weight:bolder;
+    color:rgb(158, 158, 158)
+}
+.header span {
+    color:rgb(39,174,96);
+}
+
+
+.title h1 {
+    padding-top: 20px;
+    padding-left: 680px;
+    color:black;
+}
+
+hr {
+    width: 1500px;
+    margin: 20px 20px;
+    border: 1px solid gray;
+}
+
+/*cropsButton*/
+
+.cropsButton {
+    margin: 120px auto;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    width:1200px;
+    list-style:none;
+}
+.cropsButton li:hover {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+.cropsButton li {
+    padding-top: 20px;
+    margin:40px;
+    height:70px;
+    width: 160px;
+    /*background-color:rgb(196, 220, 172);*/
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+
+}

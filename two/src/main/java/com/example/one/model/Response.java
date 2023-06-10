@@ -22,6 +22,16 @@ public class Response {
     @JacksonXmlElementWrapper(useWrapping = false)
     private Body body;
 
+//    private List<String> codeNms;
+//
+//    public List<String> getCodeNms() {
+//        return codeNms;
+//    }
+//
+//    public void setCodeNms(List<String> codeNms) {
+//        this.codeNms = codeNms;
+//    }
+
 
 /*
     @Data

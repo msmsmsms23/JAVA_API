@@ -8,6 +8,7 @@
     content:"";
 }*/
 
+
 .header img {
     float:left;
     margin: 20px;
@@ -82,4 +83,9 @@ hr {
 
 .category p{
     text-align: center;
+}
+
+h2{
+
+    color: red;
 }

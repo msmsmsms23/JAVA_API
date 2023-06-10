@@ -17,8 +17,7 @@
             dataType: 'json',
             success: function(response) {
                 response.forEach(function(codeNm, index) {
-                    var listItem = $('<li></li>').appendTo('.cropsButton');
-                    $('<a></a>').text(codeNm).appendTo(listItem);
+                    $("#cropsButton").append("<li><a onclick=\"fncNextList(" + index + ", '" + codeNm + "'" + ");\">" + codeNm + "</a></li>");
                 });
             },
             error: function(error) {
@@ -26,25 +25,47 @@
             }
         });
 
-        $(".cropsButton li").css("background-color","#C4DCAC");
+        $("#cropsButton li").css("background-color","#C4DCAC");
     });
+
+    function fncNextList(kCode, cNm){
+        //with(document.listApiForm){
+        //    listCategoryCode.value = kCode;
+        //    listCategoryNm.value = cNm;
+        //    method="get";
+        //    action = "planRcm.jsp";
+        //    target = "_self";
+        //    submit();
+        //
+        //
+        //}
+
+         location.href="/planRcm?kCode=afasfsa";
+    }
   </script>
 </head>
 
 <body>
 <a href="ttokbooMain.html" target="_self">
+
   <header class="header">
     <img src="farmer.png">
     <h3><span>똑</span>부러지는 농<span>부</span>들의 선택</h3>
   </header>
 </a>
 <header class="title">
-  <h1>작형 고르기</h1>
+  <h1>작업 고르기</h1>
 </header>
 <hr>
 
 <section>
-  <ul class="cropsButton"></ul>
+  <ul id="cropsButton"></ul>
 </section>
+
+<form name="listApiForm">
+  <input type="hidden" name="listCategoryCode">
+  <input type="hidden" name="listCategoryNm">
+</form>
+
 </body>
 </html>

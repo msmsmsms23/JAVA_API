@@ -10,27 +10,24 @@
 
 <!--  <script>-->
 <!--    $(document).ready(function(){-->
-<!--        // API 호출 및 데이터 가져오기-->
-<!--        $.ajax({-->
-<!--            url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',-->
-<!--            method: 'GET',-->
-<!--            dataType: 'json',-->
-<!--            success: function(response) {-->
-<!--                response.forEach(function(codeNm, index) {-->
-<!--                    $("#cropsButton").append("<li><a onclick=\"fncNextList('" + codeNm + "');\">" + codeNm + "</a></li>");-->
-<!--                });-->
-<!--            },-->
-<!--            error: function(error) {-->
-<!--                console.log(error);-->
-<!--            }-->
-<!--        });-->
+<!--      // API 호출 및 데이터 가져오기-->
+<!--      $.ajax({-->
+<!--        url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',-->
+<!--        method: 'GET',-->
+<!--        dataType: 'json',-->
+<!--        success: function(response) {-->
+<!--          response.codeNms.forEach(function(codeNm, index) {-->
+<!--            var kidofcomdtySeCode = response.kidofcomdtySeCodes[index];-->
+<!--            $("#cropsButton").append("<li><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "\">" + codeNm + "</a></li>");-->
+<!--          });-->
+<!--        },-->
+<!--        error: function(error) {-->
+<!--          console.log(error);-->
+<!--        }-->
+<!--      });-->
 
-<!--        $("#cropsButton li").css("background-color","#C4DCAC");-->
+<!--      $("#cropsButton li").css("background-color","#C4DCAC");-->
 <!--    });-->
-
-<!--    function fncNextList(cNm){-->
-<!--        location.href="/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=" + cNm;-->
-<!--    }-->
 <!--  </script>-->
   <script>
     $(document).ready(function(){
@@ -42,7 +39,7 @@
         success: function(response) {
           response.codeNms.forEach(function(codeNm, index) {
             var kidofcomdtySeCode = response.kidofcomdtySeCodes[index];
-            $("#cropsButton").append("<li><a onclick=\"fncNextList('" + kidofcomdtySeCode + "');\">" + codeNm + "</a></li>");
+            $("#cropsButton").append("<li><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "&codeNm=" + codeNm + "\">" + codeNm + "</a></li>");
           });
         },
         error: function(error) {
@@ -52,11 +49,8 @@
 
       $("#cropsButton li").css("background-color","#C4DCAC");
     });
-
-    function fncNextList(kidofcomdtySeCode){
-      location.href = "/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=" + kidofcomdtySeCode;
-    }
   </script>
+
 </head>
 
 <body>

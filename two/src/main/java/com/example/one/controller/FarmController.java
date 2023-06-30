@@ -5,6 +5,7 @@ import com.example.one.model.Item;
 import com.example.one.model.Response;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -48,6 +49,7 @@ public class FarmController {
 //        return codeNms;
 //    }
     @GetMapping("/get")
+    @ApiOperation(value = "품목코드 정보 조회")
     @ResponseBody
     public Map<String, Object> getXX(@RequestParam String apiKey) throws Exception {
         String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleGrpList"

@@ -8,39 +8,53 @@
   <link rel="stylesheet" href="recommend.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!--  <script>-->
+<!--    $(document).ready(function(){-->
+<!--        // API 호출 및 데이터 가져오기-->
+<!--        $.ajax({-->
+<!--            url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',-->
+<!--            method: 'GET',-->
+<!--            dataType: 'json',-->
+<!--            success: function(response) {-->
+<!--                response.forEach(function(codeNm, index) {-->
+<!--                    $("#cropsButton").append("<li><a onclick=\"fncNextList('" + codeNm + "');\">" + codeNm + "</a></li>");-->
+<!--                });-->
+<!--            },-->
+<!--            error: function(error) {-->
+<!--                console.log(error);-->
+<!--            }-->
+<!--        });-->
+
+<!--        $("#cropsButton li").css("background-color","#C4DCAC");-->
+<!--    });-->
+
+<!--    function fncNextList(cNm){-->
+<!--        location.href="/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=" + cNm;-->
+<!--    }-->
+<!--  </script>-->
   <script>
     $(document).ready(function(){
-        // API 호출 및 데이터 가져오기
-        $.ajax({
-            url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',
-            method: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                response.forEach(function(codeNm, index) {
-                    $("#cropsButton").append("<li><a onclick=\"fncNextList(" + index + ", '" + codeNm + "'" + ");\">" + codeNm + "</a></li>");
-                });
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
+      // API 호출 및 데이터 가져오기
+      $.ajax({
+        url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+          response.codeNms.forEach(function(codeNm, index) {
+            var kidofcomdtySeCode = response.kidofcomdtySeCodes[index];
+            $("#cropsButton").append("<li><a onclick=\"fncNextList('" + kidofcomdtySeCode + "');\">" + codeNm + "</a></li>");
+          });
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
 
-        $("#cropsButton li").css("background-color","#C4DCAC");
+      $("#cropsButton li").css("background-color","#C4DCAC");
     });
 
-    function fncNextList(kCode, cNm){
-        //with(document.listApiForm){
-        //    listCategoryCode.value = kCode;
-        //    listCategoryNm.value = cNm;
-        //    method="get";
-        //    action = "planRcm.jsp";
-        //    target = "_self";
-        //    submit();
-        //
-        //
-        //}
-
-         location.href="/planRcm?kCode=afasfsa";
+    function fncNextList(kidofcomdtySeCode){
+      location.href = "/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=" + kidofcomdtySeCode;
     }
   </script>
 </head>
@@ -62,10 +76,7 @@
   <ul id="cropsButton"></ul>
 </section>
 
-<form name="listApiForm">
-  <input type="hidden" name="listCategoryCode">
-  <input type="hidden" name="listCategoryNm">
-</form>
+<div id="subItemsTable"></div>
 
 </body>
 </html>

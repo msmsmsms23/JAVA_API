@@ -1,6 +1,7 @@
 package com.example.one.controller;
 
 import com.example.one.model.Farm;
+import com.example.one.model.Item;
 import com.example.one.model.Response;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -15,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:8080/farm/get")
@@ -26,9 +29,27 @@ public class FarmController {
     private Log logger = LogFactory.getLog(this.getClass());
 
     //---------1번 (품목코드 정보)
+//    @GetMapping("/get")
+//    @ResponseBody
+//    public List<String> getXX(@RequestParam String apiKey) throws Exception {
+//        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleGrpList"
+//                + "?apiKey=" + apiKey;
+//
+//        RestTemplate restTemplate = new RestTemplate();
+//        String xml = restTemplate.getForObject(url, String.class);
+//
+//        XmlMapper xmlMapper = new XmlMapper();
+//        Response response = xmlMapper.readValue(xml, Response.class);
+//
+//        List<String> codeNms = response.getBody().getItems().stream()
+//                .map(item -> item.getCodeNm())
+//                .collect(Collectors.toList());
+//
+//        return codeNms;
+//    }
     @GetMapping("/get")
     @ResponseBody
-    public List<String> getXX(@RequestParam String apiKey) throws Exception {
+    public Map<String, Object> getXX(@RequestParam String apiKey) throws Exception {
         String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleGrpList"
                 + "?apiKey=" + apiKey;
 
@@ -39,13 +60,40 @@ public class FarmController {
         Response response = xmlMapper.readValue(xml, Response.class);
 
         List<String> codeNms = response.getBody().getItems().stream()
-                .map(item -> item.getCodeNm())
+                .map(Item::getCodeNm)
                 .collect(Collectors.toList());
 
-        return codeNms;
+        List<String> kidofcomdtySeCodes = response.getBody().getItems().stream()
+                .map(Item::getKidofcomdtySeCode)
+                .collect(Collectors.toList());
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("codeNms", codeNms);
+        result.put("kidofcomdtySeCodes", kidofcomdtySeCodes);
+
+        return result;
     }
 
+    @GetMapping("/getSubItems")
+    @ResponseBody
+    public List<String> getSubItems(@RequestParam String apiKey,@RequestParam String kidofcomdtySeCode) throws Exception {
+        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleLst"
+                + "?apiKey=" + apiKey
+                + "&kidofcomdtySeCode=" + kidofcomdtySeCode;
 
+        RestTemplate restTemplate = new RestTemplate();
+        String xml = restTemplate.getForObject(url, String.class);
+
+        XmlMapper xmlMapper = new XmlMapper();
+        Response response = xmlMapper.readValue(xml, Response.class);
+
+        List<String> sjList = response.getBody().getItems().stream()
+//                .filter(item -> item.getKidofcomdtySeCode().equalsIgnoreCase(kidofcomdtySeCode))
+                .map(Item::getSj)
+                .collect(Collectors.toList());
+
+        return sjList;
+    }
 
 
     //---------2번 (농작업일정 목록)

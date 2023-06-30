@@ -18,7 +18,7 @@
 </a>
 
 <header class="title">
-  <h1 id="cropName">상세 작물 목록</h1>
+  <h1 id="cropName"></h1>
 </header>
 <hr>
 
@@ -26,7 +26,33 @@
   <ul id="activityList"></ul>
 </section>
 
-<script>
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--      // URL에서 kidofcomdtySeCode 매개변수 가져오기-->
+<!--      var urlParams = new URLSearchParams(window.location.search);-->
+<!--      var kidofcomdtySeCode = urlParams.get('kidofcomdtySeCode');-->
+<!--      var codeNm = urlParams.get('codeNm');-->
+
+<!--      // h1 요소에 작물명 설정하기-->
+<!--      $("#cropName").text(codeNm);-->
+
+<!--      // 일정 목록을 가져오기 위한 API 호출-->
+<!--      $.ajax({-->
+<!--        url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,-->
+<!--        method: 'GET',-->
+<!--        dataType: 'json',-->
+<!--        success: function(response) {-->
+<!--          response.forEach(function(activity) {-->
+<!--            $("#activityList").append("<li>" + activity + "</li>");-->
+<!--          });-->
+<!--        },-->
+<!--        error: function(error) {-->
+<!--          console.log(error);-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+<!--  </script>-->
+  <script>
     $(document).ready(function() {
       // URL에서 kidofcomdtySeCode 매개변수 가져오기
       var urlParams = new URLSearchParams(window.location.search);
@@ -42,10 +68,12 @@
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-          response.forEach(function(activity) {
-            $("#activityList").append("<li>" + activity + "</li>");
+          response.sjList.forEach(function(sjList, index) {
+            var cntntsNo = response.cntntsNo[index];
+            $("#activityList").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sjList + "</a></li>");
           });
         },
+
         error: function(error) {
           console.log(error);
         }

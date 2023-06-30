@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class FarmController {
 //        return codeNms;
 //    }
     @GetMapping("/get")
-    @ApiOperation(value = "품목코드 정보 조회")
+    @ApiOperation(value = "(1)품목코드 정보 조회")
     @ResponseBody
     public Map<String, Object> getXX(@RequestParam String apiKey) throws Exception {
         String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleGrpList"
@@ -77,8 +78,9 @@ public class FarmController {
     }
 
     @GetMapping("/getSubItems")
+    @ApiOperation(value = "(2)농작업일정 목록 정보 조회")
     @ResponseBody
-    public List<String> getSubItems(@RequestParam String apiKey,@RequestParam String kidofcomdtySeCode) throws Exception {
+    public Map<String, Object> getSubItems(@RequestParam String apiKey,@RequestParam String kidofcomdtySeCode) throws Exception {
         String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleLst"
                 + "?apiKey=" + apiKey
                 + "&kidofcomdtySeCode=" + kidofcomdtySeCode;
@@ -90,38 +92,67 @@ public class FarmController {
         Response response = xmlMapper.readValue(xml, Response.class);
 
         List<String> sjList = response.getBody().getItems().stream()
-//                .filter(item -> item.getKidofcomdtySeCode().equalsIgnoreCase(kidofcomdtySeCode))
                 .map(Item::getSj)
                 .collect(Collectors.toList());
 
-        return sjList;
+        List<String> cntntsNoList = response.getBody().getItems().stream()
+                .map(Item::getCntntsNo)
+                .collect(Collectors.toList());
+
+        Map<String, Object> result1 = new HashMap<>();
+        result1.put("sjList", sjList);
+        result1.put("cntntsNoList", cntntsNoList);
+
+        return result1;
+
+//        return sjList;
+    }
+
+    //---------3번 (농작업일정 상세 정보 목록)
+    @GetMapping("/getDetail")
+    @ApiOperation(value = "(3) 농작업 상세기능 명세")
+    @ResponseBody
+    public List<String> getDetail(@RequestParam String cntntsNo,@RequestParam String apiKey) throws Exception {
+
+        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleDtl"
+                + "?cntntsNo=" + cntntsNo
+                + "&apiKey=" + apiKey;
+
+        RestTemplate restTemplate = new RestTemplate();
+        String xml =  restTemplate.getForObject(url, String.class);
+
+        XmlMapper xmlMapper = new XmlMapper();
+        Response response = xmlMapper.readValue(xml, Response.class);
+
+        List<String> cnList = Collections.singletonList(response.getBody().getItem().getCn());
+
+        return cnList;
+    }
+
+    @GetMapping("/getCalendar")
+    @ApiOperation(value = "(4) 농작업일정 시기 정보 조회 상세기능 명세")
+    @ResponseBody
+    public List<String> getCalendar(@RequestParam String cntntsNo,@RequestParam String apiKey) throws Exception {
+        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleEraInfoLst"
+                + "?cntntsNo=" + cntntsNo
+                + "&apiKey=" + apiKey;
+
+        RestTemplate restTemplate = new RestTemplate();
+        String xml = restTemplate.getForObject(url, String.class);
+
+        XmlMapper xmlMapper = new XmlMapper();
+        Response response = xmlMapper.readValue(xml, Response.class);
+
+        List<String> htmlCnList = response.getBody().getItems().stream()
+                .map(Item::getHtmlCn)
+                .collect(Collectors.toList());
+
+        return htmlCnList;
     }
 
 
-    //---------2번 (농작업일정 목록)
-//    @GetMapping("/get")
-//    @ResponseBody
-//    public Response getXX(@RequestParam String apiKey,String kidofcomdtySeCode) throws Exception {
-//
-//        //apiKey "20230601JKDXVD39FWGMF0PJBPWMA"
-//        //kidofcomdtySeCode  "210004"
-//
-////        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleLst"
-////                + "?apiKey=" + apiKey
-////                + "&kidofcomdtySeCode=" + kidofcomdtySeCode;
-//
-//        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleLst"
-//                + "?apiKey=" + apiKey
-//                + "&kidofcomdtySeCode=" + kidofcomdtySeCode;
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        String xml =  restTemplate.getForObject(url, String.class);
-//
-//        XmlMapper xmlMapper = new XmlMapper();
-//        Response response = xmlMapper.readValue(xml, Response.class);
-//        return response;
-//    }
+
+
 
     //---------3번 (농작업일정 상세 정보 목록)
 //    @GetMapping("/get")
@@ -194,4 +225,32 @@ public class FarmController {
 //        Response response = xmlMapper.readValue(xml, Response.class);
 //        return response;
 //    }
+
+    @GetMapping("/lecture")
+    @ResponseBody
+    public Map<String, Object> lecture(@RequestParam String apiKey) throws Exception {
+
+
+        String url = "http://api.nongsaro.go.kr/service/lectureDicMvp/lectureDicMvpList"
+                + "?apiKey=" + apiKey;
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        String xml = restTemplate.getForObject(url, String.class);
+
+        XmlMapper xmlMapper = new XmlMapper();
+        Response response = xmlMapper.readValue(xml, Response.class);
+
+        List<String> sj = response.getBody().getItems().stream()
+                .map(Item::getSj)
+                .collect(Collectors.toList());
+
+
+        Map<String, Object> result2 = new HashMap<>();
+        result2.put("sj", sj);
+
+
+
+        return result2;
+    }
 }

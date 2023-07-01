@@ -2,68 +2,10 @@
     margin:0px;
     padding:0px;
 }
-/*.header::after{
-    display:block;
-    clear:both;
-    content:"";
-}*/
 
-/* 드롭다운 메뉴 스타일 */
-.dropdown {
-  position: relative;
-  display: inline-block;
+a {
+    text-decoration: none;
 }
-
-.dropdown-toggle {
-  padding: 10px;
-  color: #333;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.dropdown-toggle:hover {
-  background-color: #f5f5f5;
-}
-
-.dropdown-toggle .caret {
-  margin-left: 5px;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1;
-  display: block;
-  min-width: 160px;
-  padding: 10px;
-  margin: 0;
-  list-style: none;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-}
-
-.dropdown-menu li {
-  padding: 5px 0;
-}
-
-.dropdown-menu li a {
-  display: block;
-  padding: 5px;
-  color: #333;
-  text-decoration: none;
-}
-
-.dropdown-menu li a:hover {
-  background-color: #f5f5f5;
-}
-
-/* 드롭다운 메뉴 활성화 스타일 */
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
 
 .header img {
     float:left;
@@ -96,7 +38,7 @@ hr {
 
 /*cropsButton*/
 
-.cropsButton {
+#cropsButton {
     margin: 120px auto;
     display:flex;
     flex-direction:row;
@@ -104,10 +46,10 @@ hr {
     width:1200px;
     list-style:none;
 }
-.cropsButton li:hover {
+#cropsButton li:hover {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
 }
-.cropsButton li {
+#cropsButton li {
     padding-top: 20px;
     margin:40px;
     height:70px;
@@ -116,5 +58,60 @@ hr {
     font-size: 30px;
     font-weight: bolder;
     text-align: center;
+}
 
+/* 드롭다운 메뉴 스타일 */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown-toggle:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-toggle .caret {
+  margin-left: 5px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  display: none; /* 초기에는 드롭다운 메뉴 숨김 */
+  min-width: 160px;
+  padding: 10px;
+  margin: 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu li {
+  padding: 5px 0;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 5px;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f5f5f5;
+}
+
+/* 드롭다운 메뉴 활성화 스타일 */
+.dropdown:hover .dropdown-menu {
+  display: block; /* 마우스를 올리면 드롭다운 메뉴 표시 */
 }

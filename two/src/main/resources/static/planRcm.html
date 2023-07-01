@@ -18,7 +18,7 @@
         success: function(response) {
           response.codeNms.forEach(function(codeNm, index) {
             var kidofcomdtySeCode = response.kidofcomdtySeCodes[index];
-            $("#cropsButton").append("<li style='background-color: rgb(196, 220, 172);'><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "&codeNm=" + codeNm + "\">" + codeNm + "</a></li>");
+            $("#cropsButton").append("<li><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "&codeNm=" + codeNm + "\">" + codeNm + "</a></li>");
           });
         },
         error: function(error) {
@@ -29,32 +29,6 @@
       $("#cropsButton li").css("background-color","#C4DCAC");
     });
   </script>
-
-
-<!--  <script>-->
-<!--  $(document).ready(function(){-->
-<!--    // API 호출 및 데이터 가져오기-->
-<!--    $.ajax({-->
-<!--      url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',-->
-<!--      method: 'GET',-->
-<!--      dataType: 'xml',-->
-<!--      success: function(response) {-->
-<!--        // XML 데이터를 처리-->
-<!--        var items = $(response).find('item');-->
-<!--        items.each(function(index) {-->
-<!--          var codeNm = $(this).find('codeNm').text();-->
-<!--          var kidofcomdtySeCode = $(this).find('kidofcomdtySeCode').text();-->
-<!--          $("#cropsButton").append("<li><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "&codeNm=" + codeNm + "\">" + codeNm + "</a></li>");-->
-<!--        });-->
-<!--      },-->
-<!--      error: function(error) {-->
-<!--        console.log(error);-->
-<!--      }-->
-<!--    });-->
-
-<!--    $("#cropsButton li").css("background-color","#C4DCAC");-->
-<!--  });-->
-<!--</script>-->
 
 </head>
 

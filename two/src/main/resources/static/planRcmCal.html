@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>농작업 일정 추천 상세 정보</title>
+  <title>농작업 일정 달력 및 작물 상세</title>
   <link rel="stylesheet" href="recommend.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -17,11 +17,39 @@
   </header>
 </a>
 
+<header class="title">
+  <h1 id="cropName"></h1>
+</header>
+<hr>
+
 <section>
   <ul id="activityList"></ul>
 </section>
 
-<script>
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--      // URL에서 cntntsNo 매개변수 가져오기-->
+<!--      var urlParams = new URLSearchParams(window.location.search);-->
+<!--      var cntntsNo = urlParams.get('cntntsNo');-->
+
+
+<!--      // 일정 목록을 가져오기 위한 API 호출-->
+<!--      $.ajax({-->
+<!--        url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,-->
+<!--        method: 'GET',-->
+<!--        dataType: 'json',-->
+<!--        success: function(response) {-->
+<!--          response.forEach(function(activity) {-->
+<!--            $("#activityList").append("<li>" + activity + "</li>");-->
+<!--          });-->
+<!--        },-->
+<!--        error: function(error) {-->
+<!--          console.log(error);-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+<!--  </script>-->
+  <script>
     $(document).ready(function() {
       // URL에서 cntntsNo 매개변수 가져오기
       var urlParams = new URLSearchParams(window.location.search);
@@ -30,12 +58,12 @@
 
       // 일정 목록을 가져오기 위한 API 호출
       $.ajax({
-        url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,
+        url: '/farm/getCalendar?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&cntntsNo=' + cntntsNo,
         method: 'GET',
         dataType: 'json',
         success: function(response) {
           response.forEach(function(activity) {
-            $("#activityList").append("<li>" + activity + "</li>");
+            $("#activityList").append(activity);
           });
         },
         error: function(error) {

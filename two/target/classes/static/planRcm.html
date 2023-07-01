@@ -18,7 +18,7 @@
         success: function(response) {
           response.codeNms.forEach(function(codeNm, index) {
             var kidofcomdtySeCode = response.kidofcomdtySeCodes[index];
-            $("#cropsButton").append("<li><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "&codeNm=" + codeNm + "\">" + codeNm + "</a></li>");
+            $("#cropsButton").append("<li style='background-color: rgb(196, 220, 172);'><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "&codeNm=" + codeNm + "\">" + codeNm + "</a></li>");
           });
         },
         error: function(error) {

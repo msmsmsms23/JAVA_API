@@ -23,11 +23,7 @@
 <hr>
 
 <section>
-  <ul id="activityList1"></ul>
-</section>
-
-<section>
-  <ul id="activityList2"></ul>
+  <ul id="activityList"></ul>
 </section>
 
   <script>
@@ -46,7 +42,7 @@
         success: function(response) {
           response.sjList.forEach(function(sj, index) {
             var cntntsNo = response.cntntsNoList[index];
-            $("#activityList1").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sj + "</a></li>");
+            $("#activityList").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sj + "</a></li>");
           });
         },
 
@@ -55,6 +51,7 @@
         }
       });
     });
+
   </script>
 </body>
 </html>

@@ -68,9 +68,9 @@
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-          response.sjList.forEach(function(sjList, index) {
-            var cntntsNo = response.cntntsNo[index];
-            $("#activityList").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sjList + "</a></li>");
+          response.sjList.forEach(function(sj, index) {
+            var cntntsNo = response.cntntsNoList[index];
+            $("#activityList").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sj + "</a></li>");
           });
         },
 

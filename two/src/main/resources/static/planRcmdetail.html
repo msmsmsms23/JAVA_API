@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>농작업 일정 추천 상세 정보</title>
-  <link rel="stylesheet" href="recommend.css">
+  <link rel="stylesheet" href="./css/recommend.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -26,32 +26,75 @@
   <ul id="activityList"></ul>
 </section>
 
+<!--  <script>-->
+<!--    $(document).ready(function() {-->
+
+<!--      var urlParams = new URLSearchParams(window.location.search);-->
+<!--      var kidofcomdtySeCode = urlParams.get('kidofcomdtySeCode');-->
+<!--      var codeNm = urlParams.get('codeNm');-->
+
+<!--      $("#cropName").text(codeNm);-->
+
+<!--      $.ajax({-->
+<!--        url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,-->
+<!--        method: 'GET',-->
+<!--        dataType: 'json',-->
+<!--        success: function(response) {-->
+<!--          response.sjList.forEach(function(sj, index) {-->
+<!--            var cntntsNo = response.cntntsNoList[index];-->
+<!--            $("#activityList").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sj + "</a></li>");-->
+<!--          });-->
+<!--        },-->
+
+<!--        error: function(error) {-->
+<!--          console.log(error);-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+
+<!--  </script>-->
   <script>
     $(document).ready(function() {
 
-      var urlParams = new URLSearchParams(window.location.search);
-      var kidofcomdtySeCode = urlParams.get('kidofcomdtySeCode');
-      var codeNm = urlParams.get('codeNm');
+    var urlParams = new URLSearchParams(window.location.search);
+    var kidofcomdtySeCode = urlParams.get('kidofcomdtySeCode');
+    var codeNm = urlParams.get('codeNm');
 
-      $("#cropName").text(codeNm);
+    $("#cropName").text(codeNm);
 
-      $.ajax({
-        url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-          response.sjList.forEach(function(sj, index) {
-            var cntntsNo = response.cntntsNoList[index];
-            $("#activityList").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sj + "</a></li>");
+    $.ajax({
+      url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,
+      method: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        response.sjList.forEach(function(sj, index) {
+          var cntntsNo = response.cntntsNoList[index];
+          var dropdownMenu = $("<li class='dropdown'></li>");
+          var dropdownToggle = $("<a class='dropdown-toggle' data-toggle='dropdown' href='#'></a>").text(sj);
+          dropdownToggle.append("<span class='caret'></span>");
+          var dropdownMenuItems = $("<ul class='dropdown-menu'></ul>");
+          dropdownMenuItems.append("<li><a href='planRcmCal.html?cntntsNo=" + cntntsNo + "'>농작업 일정</a></li>");
+          dropdownMenuItems.append("<li><a href='planRcmCn.html?cntntsNo=" + cntntsNo + "'>재배 상세정보</a></li>");
+          dropdownMenu.append(dropdownToggle);
+          dropdownMenu.append(dropdownMenuItems);
+
+          // 드롭다운 메뉴 초기 상태를 닫힌 상태로 설정
+          dropdownMenuItems.hide();
+
+          dropdownToggle.click(function() {
+            dropdownMenuItems.toggle();
           });
-        },
 
-        error: function(error) {
-          console.log(error);
-        }
-      });
+          $("#activityList").append(dropdownMenu);
+        });
+      },
+
+      error: function(error) {
+        console.log(error);
+      }
     });
-
+  });
   </script>
+
 </body>
 </html>

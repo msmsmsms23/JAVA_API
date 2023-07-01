@@ -24,11 +24,7 @@
 
 <section>
   <ul id="activityList1"></ul>
-</section><br><hr><br>
-
-<section>
-  <ul id="activityList2"></ul>
-</section>
+</section><br>
 
   <script>
     $(document).ready(function() {
@@ -52,26 +48,6 @@
       });
     });
 
-    $(document).ready(function() {
-    // URL에서 cntntsNo 매개변수 가져오기
-    var urlParams = new URLSearchParams(window.location.search);
-    var cntntsNo = urlParams.get('cntntsNo');
-
-
-    $.ajax({
-      url: '/farm/getDetail?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&cntntsNo=' + cntntsNo,
-      method: 'GET',
-      dataType: 'json',
-      success: function(response) {
-        response.forEach(function(activity) {
-          $("#activityList2").append(activity);
-          });
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      });
-    });
   </script>
 </body>
 </html>

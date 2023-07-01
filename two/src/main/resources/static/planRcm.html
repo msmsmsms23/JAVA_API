@@ -5,33 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>농작업 일정 추천</title>
-  <link rel="stylesheet" href="recommend.css">
+  <link rel="stylesheet" href="./css/recommend.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!--  <script>-->
-<!--    $(document).ready(function(){-->
-<!--      // API 호출 및 데이터 가져오기-->
-<!--      $.ajax({-->
-<!--        url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',-->
-<!--        method: 'GET',-->
-<!--        dataType: 'json',-->
-<!--        success: function(response) {-->
-<!--          response.codeNms.forEach(function(codeNm, index) {-->
-<!--            var kidofcomdtySeCode = response.kidofcomdtySeCodes[index];-->
-<!--            $("#cropsButton").append("<li><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "\">" + codeNm + "</a></li>");-->
-<!--          });-->
-<!--        },-->
-<!--        error: function(error) {-->
-<!--          console.log(error);-->
-<!--        }-->
-<!--      });-->
-
-<!--      $("#cropsButton li").css("background-color","#C4DCAC");-->
-<!--    });-->
-<!--  </script>-->
   <script>
     $(document).ready(function(){
-      // API 호출 및 데이터 가져오기
+
       $.ajax({
         url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',
         method: 'GET',
@@ -51,13 +30,39 @@
     });
   </script>
 
+
+<!--  <script>-->
+<!--  $(document).ready(function(){-->
+<!--    // API 호출 및 데이터 가져오기-->
+<!--    $.ajax({-->
+<!--      url: '/farm/get?apiKey=20230601JKDXVD39FWGMF0PJBPWMA',-->
+<!--      method: 'GET',-->
+<!--      dataType: 'xml',-->
+<!--      success: function(response) {-->
+<!--        // XML 데이터를 처리-->
+<!--        var items = $(response).find('item');-->
+<!--        items.each(function(index) {-->
+<!--          var codeNm = $(this).find('codeNm').text();-->
+<!--          var kidofcomdtySeCode = $(this).find('kidofcomdtySeCode').text();-->
+<!--          $("#cropsButton").append("<li><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "&codeNm=" + codeNm + "\">" + codeNm + "</a></li>");-->
+<!--        });-->
+<!--      },-->
+<!--      error: function(error) {-->
+<!--        console.log(error);-->
+<!--      }-->
+<!--    });-->
+
+<!--    $("#cropsButton li").css("background-color","#C4DCAC");-->
+<!--  });-->
+<!--</script>-->
+
 </head>
 
 <body>
 <a href="ttokbooMain.html" target="_self">
 
   <header class="header">
-    <img src="farmer.png">
+    <img src="img/farmer.png">
     <h3><span>똑</span>부러지는 농<span>부</span>들의 선택</h3>
   </header>
 </a>

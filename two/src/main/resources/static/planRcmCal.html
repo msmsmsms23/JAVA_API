@@ -5,14 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>농작업 일정 달력 및 작물 상세</title>
-  <link rel="stylesheet" href="recommend.css">
+  <link rel="stylesheet" href="./css/recommend.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
 <a href="ttokbooMain.html" target="_self">
   <header class="header">
-    <img src="farmer.png">
+    <img src="img/farmer.png">
     <h3><span>똑</span>부러지는 농<span>부</span>들의 선택</h3>
   </header>
 </a>
@@ -26,29 +26,6 @@
   <ul id="activityList"></ul>
 </section>
 
-<!--<script>-->
-<!--    $(document).ready(function() {-->
-<!--      // URL에서 cntntsNo 매개변수 가져오기-->
-<!--      var urlParams = new URLSearchParams(window.location.search);-->
-<!--      var cntntsNo = urlParams.get('cntntsNo');-->
-
-
-<!--      // 일정 목록을 가져오기 위한 API 호출-->
-<!--      $.ajax({-->
-<!--        url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,-->
-<!--        method: 'GET',-->
-<!--        dataType: 'json',-->
-<!--        success: function(response) {-->
-<!--          response.forEach(function(activity) {-->
-<!--            $("#activityList").append("<li>" + activity + "</li>");-->
-<!--          });-->
-<!--        },-->
-<!--        error: function(error) {-->
-<!--          console.log(error);-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-<!--  </script>-->
   <script>
     $(document).ready(function() {
       // URL에서 cntntsNo 매개변수 가져오기
@@ -56,7 +33,6 @@
       var cntntsNo = urlParams.get('cntntsNo');
 
 
-      // 일정 목록을 가져오기 위한 API 호출
       $.ajax({
         url: '/farm/getCalendar?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&cntntsNo=' + cntntsNo,
         method: 'GET',

@@ -17,4 +17,5 @@ public class Farm {
     private String cn;
     private String kidofcomdtySeCodeNm;
     private String htmlCn;
+    private String lectureCodeNm;
 }

@@ -30,25 +30,6 @@ public class FarmController {
 
     private Log logger = LogFactory.getLog(this.getClass());
 
-    //---------1번 (품목코드 정보)
-//    @GetMapping("/get")
-//    @ResponseBody
-//    public List<String> getXX(@RequestParam String apiKey) throws Exception {
-//        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleGrpList"
-//                + "?apiKey=" + apiKey;
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//        String xml = restTemplate.getForObject(url, String.class);
-//
-//        XmlMapper xmlMapper = new XmlMapper();
-//        Response response = xmlMapper.readValue(xml, Response.class);
-//
-//        List<String> codeNms = response.getBody().getItems().stream()
-//                .map(item -> item.getCodeNm())
-//                .collect(Collectors.toList());
-//
-//        return codeNms;
-//    }
     @GetMapping("/get")
     @ApiOperation(value = "(1)품목코드 정보 조회")
     @ResponseBody
@@ -105,10 +86,8 @@ public class FarmController {
 
         return result1;
 
-//        return sjList;
     }
 
-    //---------3번 (농작업일정 상세 정보 목록)
     @GetMapping("/getDetail")
     @ApiOperation(value = "(3) 농작업 상세기능 명세")
     @ResponseBody
@@ -150,60 +129,6 @@ public class FarmController {
         return htmlCnList;
     }
 
-
-
-
-
-    //---------3번 (농작업일정 상세 정보 목록)
-//    @GetMapping("/get")
-//    @ResponseBody
-//    public Response getXX(@RequestParam String cntntsNo,String apiKey) throws Exception {
-//
-//        //apiKey "20230601JKDXVD39FWGMF0PJBPWMA"
-//        //kidofcomdtySeCode  "210004"
-//
-////        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleDtl"
-////                + "?apiKey=" + apiKey
-////                + "&kidofcomdtySeCode=" + kidofcomdtySeCode;
-//
-//        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleDtl"
-//                + "?cntntsNo=" + cntntsNo
-//                + "&apiKey=" + apiKey;
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        String xml =  restTemplate.getForObject(url, String.class);
-//
-//        XmlMapper xmlMapper = new XmlMapper();
-//        Response response = xmlMapper.readValue(xml, Response.class);
-//        return response;
-//    }
-
-    //---------4번 (농작업일정 달력 목록)
-//    @GetMapping("/get")
-//    @ResponseBody
-//    public Response getXX(@RequestParam String cntntsNo,String apiKey) throws Exception {
-//
-//        //apiKey "20230601JKDXVD39FWGMF0PJBPWMA"
-//        //kidofcomdtySeCode  "210004"
-//
-////        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleEraInfoLst"
-////                + "?apiKey=" + apiKey
-////                + "&kidofcomdtySeCode=" + kidofcomdtySeCode;
-//
-//        String url = "http://api.nongsaro.go.kr/service/farmWorkingPlanNew/workScheduleEraInfoLst"
-//                + "?cntntsNo=" + cntntsNo
-//                + "&apiKey=" + apiKey;
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        String xml = restTemplate.getForObject(url, String.class);
-//
-//        XmlMapper xmlMapper = new XmlMapper();
-//        Response response = xmlMapper.readValue(xml, Response.class);
-//        return response;
-//    }
-
     //--------- 강의동영상
 //    @GetMapping("/get")
 //    @ResponseBody
@@ -227,6 +152,7 @@ public class FarmController {
 //    }
 
     @GetMapping("/lecture")
+    @ApiOperation(value = "(5) 주제별 짧은 기술 동영상 목록")
     @ResponseBody
     public Map<String, Object> lecture(@RequestParam String apiKey) throws Exception {
 
@@ -241,15 +167,13 @@ public class FarmController {
         XmlMapper xmlMapper = new XmlMapper();
         Response response = xmlMapper.readValue(xml, Response.class);
 
-        List<String> sj = response.getBody().getItems().stream()
-                .map(Item::getSj)
+        List<String> lectureCodeNmList = response.getBody().getItems().stream()
+                .map(Item::getLectureCodeNm)
                 .collect(Collectors.toList());
 
 
         Map<String, Object> result2 = new HashMap<>();
-        result2.put("sj", sj);
-
-
+        result2.put("lectureCodeNmList", lectureCodeNmList);
 
         return result2;
     }

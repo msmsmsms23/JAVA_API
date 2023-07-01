@@ -67,4 +67,10 @@ public class Item {
     @JacksonXmlCData
     private String htmlCn;
 
+    //---------5번 (강의동영상)
+    @JacksonXmlProperty(localName = "lectureCodeNm")
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlCData
+    private String lectureCodeNm;
+
 }

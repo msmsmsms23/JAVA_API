@@ -12,7 +12,7 @@
 <body>
 <a href="ttokbooMain.html" target="_self">
   <header class="header">
-    <img src="farmer.png">
+    <img src="img/farmer.png">
     <h3><span>똑</span>부러지는 농<span>부</span>들의 선택</h3>
   </header>
 </a>
@@ -23,46 +23,22 @@
 <hr>
 
 <section>
-  <ul id="activityList"></ul>
+  <ul id="activityList1"></ul>
 </section>
 
-<!--<script>-->
-<!--    $(document).ready(function() {-->
-<!--      // URL에서 kidofcomdtySeCode 매개변수 가져오기-->
-<!--      var urlParams = new URLSearchParams(window.location.search);-->
-<!--      var kidofcomdtySeCode = urlParams.get('kidofcomdtySeCode');-->
-<!--      var codeNm = urlParams.get('codeNm');-->
+<section>
+  <ul id="activityList2"></ul>
+</section>
 
-<!--      // h1 요소에 작물명 설정하기-->
-<!--      $("#cropName").text(codeNm);-->
-
-<!--      // 일정 목록을 가져오기 위한 API 호출-->
-<!--      $.ajax({-->
-<!--        url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,-->
-<!--        method: 'GET',-->
-<!--        dataType: 'json',-->
-<!--        success: function(response) {-->
-<!--          response.forEach(function(activity) {-->
-<!--            $("#activityList").append("<li>" + activity + "</li>");-->
-<!--          });-->
-<!--        },-->
-<!--        error: function(error) {-->
-<!--          console.log(error);-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-<!--  </script>-->
   <script>
     $(document).ready(function() {
-      // URL에서 kidofcomdtySeCode 매개변수 가져오기
+
       var urlParams = new URLSearchParams(window.location.search);
       var kidofcomdtySeCode = urlParams.get('kidofcomdtySeCode');
       var codeNm = urlParams.get('codeNm');
 
-      // h1 요소에 작물명 설정하기
       $("#cropName").text(codeNm);
 
-      // 일정 목록을 가져오기 위한 API 호출
       $.ajax({
         url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,
         method: 'GET',
@@ -70,7 +46,7 @@
         success: function(response) {
           response.sjList.forEach(function(sj, index) {
             var cntntsNo = response.cntntsNoList[index];
-            $("#activityList").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sj + "</a></li>");
+            $("#activityList1").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sj + "</a></li>");
           });
         },
 

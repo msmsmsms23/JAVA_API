@@ -16,8 +16,8 @@ public class Body {
     private List<Item> items;
     private Item item;
 
-    @JsonSetter("item")
-    public void setItem(Item item) {
-        this.item = item;
-    }
+//    @JsonSetter("item")
+//    public void setItem(Item item) {
+//        this.item = item;
+//    }
 }

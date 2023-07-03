@@ -25,68 +25,61 @@
   <ul id="activityList1"></ul>
 </section>
 
-  <script>
-    $(document).ready(function() {
-      // URL에서 cntntsNo 매개변수 가져오기
-      var urlParams = new URLSearchParams(window.location.search);
-      var cntntsNo = urlParams.get('cntntsNo');
-      var sj = urlParams.get('sj');
+<!--  <script>-->
+<!--    $(document).ready(function() {-->
+<!--      // URL에서 cntntsNo 매개변수 가져오기-->
+<!--      var urlParams = new URLSearchParams(window.location.search);-->
+<!--      var cntntsNo = urlParams.get('cntntsNo');-->
+<!--      var sj = urlParams.get('sj');-->
 
-      $("#cropName").text(sj);
+<!--      $("#cropName").text(sj);-->
 
-      $.ajax({
-        url: '/farm/getCalendar?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&cntntsNo=' + cntntsNo,
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-          response.forEach(function(activity) {
-            $("#activityList1").append(activity);
-          });
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      });
-    });
-
-  </script>
-<!--<script>-->
-<!--  $(document).ready(function() {-->
-<!--    // URL에서 cntntsNo 매개변수 가져오기-->
-<!--    var urlParams = new URLSearchParams(window.location.search);-->
-<!--    var cntntsNo = urlParams.get('cntntsNo');-->
-
-<!--    $.ajax({-->
-<!--      url: '/farm/getCalendar',-->
-<!--      method: 'GET',-->
-<!--      dataType: 'json',-->
-<!--      data: {-->
-<!--        apiKey: '20230601JKDXVD39FWGMF0PJBPWMA',-->
-<!--        cntntsNo: cntntsNo-->
-<!--      },-->
-<!--      success: function(response) {-->
-<!--        var htmlContent = response.htmlContent;-->
-
-<!--        var h2Element = $('<h2>').text('생육과정(주요농작업)'); // 새로운 버튼 요소 생성-->
-<!--        var buttonElement = $('<button>').append(h2Element); // 버튼 요소에 <h2> 요소 추가-->
-
-<!--        // 기존의 <h2> 태그를 대체하기 위해 해당 요소를 찾아서 교체-->
-<!--        var existingH2Element = $(htmlContent).find('h2'); // 기존의 <h2> 태그 선택-->
-<!--        existingH2Element.replaceWith(buttonElement); // 새로운 버튼 요소로 대체-->
-
-<!--        $("#activityList1").append($(htmlContent)); // 수정된 HTML 콘텐츠를 삽입-->
-<!--      },-->
-<!--      error: function(error) {-->
-<!--        console.log(error);-->
-<!--      }-->
+<!--      $.ajax({-->
+<!--        url: '/farm/getCalendar?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&cntntsNo=' + cntntsNo,-->
+<!--        method: 'GET',-->
+<!--        dataType: 'json',-->
+<!--        success: function(response) {-->
+<!--          response.forEach(function(activity) {-->
+<!--            $("#activityList1").append(activity);-->
+<!--          });-->
+<!--        },-->
+<!--        error: function(error) {-->
+<!--          console.log(error);-->
+<!--        }-->
+<!--      });-->
 <!--    });-->
-<!--  });-->
 
-<!--</script>-->
+<!--  </script>-->
+<script>
+  $(document).ready(function() {
+    // URL에서 cntntsNo 매개변수 가져오기
+    var urlParams = new URLSearchParams(window.location.search);
+    var cntntsNo = urlParams.get('cntntsNo');
+    var sj = urlParams.get('sj');
 
+    $("#cropName").text(sj);
 
+    $.ajax({
+      url: '/farm/getCalendar?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&cntntsNo=' + cntntsNo,
+      method: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        response.forEach(function(activity) {
+          var activityElement = $("<div>").html(activity);
 
+          // h2 태그를 찾아서 텍스트 색상을 변경
+          activityElement.find('h2').css('color', 'lime');
 
+          // 변경된 HTML을 #activityList1에 추가
+          $("#activityList1").append(activityElement.html());
+        });
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+</script>
 
 </body>
 </html>

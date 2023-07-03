@@ -20,11 +20,11 @@
 <header class="title">
   <h1 id="cropName"></h1>
 </header>
-<br><hr><br>
+<br>
 
 <section>
   <ul id="activityList1"></ul>
-</section><br>
+</section>
 
   <script>
     $(document).ready(function() {
@@ -49,6 +49,44 @@
     });
 
   </script>
+<!--<script>-->
+<!--  $(document).ready(function() {-->
+<!--    // URL에서 cntntsNo 매개변수 가져오기-->
+<!--    var urlParams = new URLSearchParams(window.location.search);-->
+<!--    var cntntsNo = urlParams.get('cntntsNo');-->
+
+<!--    $.ajax({-->
+<!--      url: '/farm/getCalendar',-->
+<!--      method: 'GET',-->
+<!--      dataType: 'json',-->
+<!--      data: {-->
+<!--        apiKey: '20230601JKDXVD39FWGMF0PJBPWMA',-->
+<!--        cntntsNo: cntntsNo-->
+<!--      },-->
+<!--      success: function(response) {-->
+<!--        var htmlContent = response.htmlContent;-->
+
+<!--        var h2Element = $('<h2>').text('생육과정(주요농작업)'); // 새로운 버튼 요소 생성-->
+<!--        var buttonElement = $('<button>').append(h2Element); // 버튼 요소에 <h2> 요소 추가-->
+
+<!--        // 기존의 <h2> 태그를 대체하기 위해 해당 요소를 찾아서 교체-->
+<!--        var existingH2Element = $(htmlContent).find('h2'); // 기존의 <h2> 태그 선택-->
+<!--        existingH2Element.replaceWith(buttonElement); // 새로운 버튼 요소로 대체-->
+
+<!--        $("#activityList1").append($(htmlContent)); // 수정된 HTML 콘텐츠를 삽입-->
+<!--      },-->
+<!--      error: function(error) {-->
+<!--        console.log(error);-->
+<!--      }-->
+<!--    });-->
+<!--  });-->
+
+<!--</script>-->
+
+
+
+
+
 </body>
 </html>
-// h2 태그가 나올때마다 앞뒤로 버튼 태그를 붙여서 처리해준다??
+

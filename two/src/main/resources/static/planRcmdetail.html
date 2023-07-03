@@ -7,6 +7,29 @@
   <title>농작업 일정 추천 상세 정보</title>
   <link rel="stylesheet" href="./css/recommend.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    ul#activityList li {
+      margin-bottom: 60px;
+      margin-right: 30px;
+      font-size: 20px;
+    }
+
+    .dropdown-toggle {
+      display: block;
+      margin-bottom: 5px; /* 드롭다운 토글 요소들 간의 아래 여백을 5px로 설정 */
+    }
+
+    .dropdown-menu a {
+      display: block;
+      margin-bottom: 2px; /* 드롭다운 메뉴 링크 요소들 간의 아래 여백을 5px로 설정 */
+      font-size: 20px;
+    }
+
+    #activityList {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  </style>
 </head>
 
 <body>
@@ -26,33 +49,6 @@
   <ul id="activityList"></ul>
 </section>
 
-<!--  <script>-->
-<!--    $(document).ready(function() {-->
-
-<!--      var urlParams = new URLSearchParams(window.location.search);-->
-<!--      var kidofcomdtySeCode = urlParams.get('kidofcomdtySeCode');-->
-<!--      var codeNm = urlParams.get('codeNm');-->
-
-<!--      $("#cropName").text(codeNm);-->
-
-<!--      $.ajax({-->
-<!--        url: '/farm/getSubItems?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&kidofcomdtySeCode=' + kidofcomdtySeCode,-->
-<!--        method: 'GET',-->
-<!--        dataType: 'json',-->
-<!--        success: function(response) {-->
-<!--          response.sjList.forEach(function(sj, index) {-->
-<!--            var cntntsNo = response.cntntsNoList[index];-->
-<!--            $("#activityList").append("<li><a href=\"planRcmCal.html?cntntsNo=" + cntntsNo + "\">" + sj + "</a></li>");-->
-<!--          });-->
-<!--        },-->
-
-<!--        error: function(error) {-->
-<!--          console.log(error);-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-
-<!--  </script>-->
   <script>
     $(document).ready(function() {
 

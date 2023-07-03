@@ -1,7 +1,7 @@
-* {
+/** {
     margin:0px;
     padding:0px;
-}
+}*/
 
 a {
     text-decoration: none;
@@ -54,10 +54,14 @@ hr {
     margin:40px;
     height:70px;
     width: 160px;
-    /*background-color:rgb(196, 220, 172);*/
+    background-color:rgb(196, 220, 172);
     font-size: 30px;
     font-weight: bolder;
     text-align: center;
+}
+
+#cropsButton li a {
+    color: black;
 }
 
 /* 드롭다운 메뉴 스타일 */
@@ -87,8 +91,8 @@ hr {
   left: 0;
   z-index: 1;
   display: none; /* 초기에는 드롭다운 메뉴 숨김 */
-  min-width: 160px;
-  padding: 10px;
+  min-width: 200px;
+  padding: 5px;
   margin: 0;
   list-style: none;
   background-color: #fff;
@@ -114,4 +118,8 @@ hr {
 /* 드롭다운 메뉴 활성화 스타일 */
 .dropdown:hover .dropdown-menu {
   display: block; /* 마우스를 올리면 드롭다운 메뉴 표시 */
+}
+
+#activityList2 {
+  margin: auto;
 }

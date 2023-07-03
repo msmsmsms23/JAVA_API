@@ -19,8 +19,7 @@
 
 <header class="title">
     <h1 id="cropName"></h1>
-</header>
-<br><hr><br>
+</header><hr>
 
 <section>
     <ul id="activityList2"></ul>
@@ -31,6 +30,9 @@
     // URL에서 cntntsNo 매개변수 가져오기
     var urlParams = new URLSearchParams(window.location.search);
     var cntntsNo = urlParams.get('cntntsNo');
+    var sj = urlParams.get('sj');
+
+    $("#cropName").text(sj);
 
     $.ajax({
       url: '/farm/getDetail?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&cntntsNo=' + cntntsNo,

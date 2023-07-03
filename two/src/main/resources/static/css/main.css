@@ -1,7 +1,7 @@
-* {
+/** {
     margin:0px;
     padding:0px;
-}
+}*/
 /*.header::after{
     display:block;
     clear:both;
@@ -38,6 +38,12 @@ hr {
     border: 1px solid gray;
 }
 
+.category {
+    text-align: center;
+    align-items: center;
+    margin: auto;
+}
+
 .category::after{
     display:block;
     clear:both;
@@ -53,11 +59,13 @@ hr {
 .category section { /*카테고리 버튼*/
     /*display: inline-block;*/
     float:left;
-    margin-top: 50px;
-    margin-left: 110px;
+    /*margin-top: 50px;
+    margin-left: 110px;*/
+    margin: 100px;
     height: 400px;
     width: 245px;
     background-color:rgba(183, 204, 161, 0.33);
+    text-align: center;
     border-radius: 15px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.26);
 }
@@ -69,7 +77,6 @@ hr {
 }
 
 .category img{
-    padding-left: 80px;
     padding-top: 50px;
 }
 
@@ -81,5 +88,11 @@ hr {
 }
 
 .category p{
+    text-align: center;
+}
+
+#mainCate {
+    display: inline-flex;
+    align-items: center;
     text-align: center;
 }

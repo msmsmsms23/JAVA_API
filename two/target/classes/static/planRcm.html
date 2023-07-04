@@ -17,7 +17,7 @@
         dataType: 'json',
         success: function(response) {
           response.codeNms.forEach(function(codeNm, index) {
-            var kidofcomdtySeCode = response.kidofcomdtySeCodes[index];
+            var kidofcomdtySeCode = response.kidofcomdtySeCode[index];
             $("#cropsButton").append("<li><a href=\"planRcmdetail.html?kidofcomdtySeCode=" + kidofcomdtySeCode + "&codeNm=" + codeNm + "\">" + codeNm + "</a></li>");
           });
         },

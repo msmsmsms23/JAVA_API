@@ -1,21 +1,13 @@
 package com.example.one.controller;
 
-import com.example.one.model.Farm;
-import com.example.one.model.Item;
-import com.example.one.model.Response;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.example.one.model.*;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import java.util.Objects;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,17 +35,19 @@ public class FarmController {
         XmlMapper xmlMapper = new XmlMapper();
         Response response = xmlMapper.readValue(xml, Response.class);
 
-        List<String> codeNms = response.getBody().getItems().stream()
+        List<Item> item = response.getBody().getItems().getItem();
+
+        List<String> codeNms = item.stream()
                 .map(Item::getCodeNm)
                 .collect(Collectors.toList());
 
-        List<String> kidofcomdtySeCodes = response.getBody().getItems().stream()
+        List<String> kidofcomdtySeCode = item.stream()
                 .map(Item::getKidofcomdtySeCode)
                 .collect(Collectors.toList());
 
         Map<String, Object> result = new HashMap<>();
         result.put("codeNms", codeNms);
-        result.put("kidofcomdtySeCodes", kidofcomdtySeCodes);
+        result.put("kidofcomdtySeCode", kidofcomdtySeCode);
 
         return result;
     }
@@ -72,11 +66,13 @@ public class FarmController {
         XmlMapper xmlMapper = new XmlMapper();
         Response response = xmlMapper.readValue(xml, Response.class);
 
-        List<String> sjList = response.getBody().getItems().stream()
+        List<Item> item = response.getBody().getItems().getItem();
+
+        List<String> sjList = item.stream()
                 .map(Item::getSj)
                 .collect(Collectors.toList());
 
-        List<String> cntntsNoList = response.getBody().getItems().stream()
+        List<String> cntntsNoList = item.stream()
                 .map(Item::getCntntsNo)
                 .collect(Collectors.toList());
 
@@ -86,8 +82,10 @@ public class FarmController {
 
         return result1;
 
+//        return sjList;
     }
 
+    //---------3번 (농작업일정 상세 정보 목록)
     @GetMapping("/getDetail")
     @ApiOperation(value = "(3) 농작업 상세기능 명세")
     @ResponseBody
@@ -122,37 +120,111 @@ public class FarmController {
         XmlMapper xmlMapper = new XmlMapper();
         Response response = xmlMapper.readValue(xml, Response.class);
 
-        List<String> htmlCnList = response.getBody().getItems().stream()
+        List<Item> item = response.getBody().getItems().getItem();
+
+        List<String> htmlCnList = item.stream()
                 .map(Item::getHtmlCn)
                 .collect(Collectors.toList());
 
         return htmlCnList;
     }
 
-    @GetMapping("/lecture")
-    @ApiOperation(value = "(5) 주제별 짧은 기술 동영상 목록")
+    @GetMapping("/searchCode")
+    @ApiOperation(value = "2-(1) 품목 분류 목록")
     @ResponseBody
-    public Map<String, Object> lecture(@RequestParam String apiKey) throws Exception {
-
-
-        String url = "http://api.nongsaro.go.kr/service/lectureDicMvp/lectureDicMvpList"
+    public Map<String, Object> searchCode(@RequestParam String apiKey) throws Exception {
+        String url = "http://api.nongsaro.go.kr/service/curationMvp/mainCategoryList"
                 + "?apiKey=" + apiKey;
 
         RestTemplate restTemplate = new RestTemplate();
-
         String xml = restTemplate.getForObject(url, String.class);
 
         XmlMapper xmlMapper = new XmlMapper();
         Response response = xmlMapper.readValue(xml, Response.class);
 
-        List<String> lectureCodeNmList = response.getBody().getItems().stream()
-                .map(Item::getLectureCodeNm)
+        Body body = response.getBody();
+        List<Item> item = response.getBody().getItems().getItem();
+
+        List<String> code = item.stream()
+                .map(Item::getCode)
                 .collect(Collectors.toList());
 
+        Map<String, Object> lecturemv = new HashMap<>();
 
-        Map<String, Object> result2 = new HashMap<>();
-        result2.put("lectureCodeNmList", lectureCodeNmList);
+        List<String> codeNm = item.stream()
+                .map(Item::getCodeNm)
+                .collect(Collectors.toList());
 
-        return result2;
+        lecturemv.put("code", code);
+        lecturemv.put("codeNm", codeNm);
+
+        return lecturemv;
     }
+
+    @GetMapping("/lecture")
+    @ApiOperation(value = "2-(2) 주제별 짧은 기술 동영상 목록")
+    @ResponseBody
+    public Map<String, Object> lecture(@RequestParam String apiKey) throws Exception {
+        String url = "http://api.nongsaro.go.kr/service/curationMvp/curationMvpList"
+                + "?apiKey=" + apiKey;
+
+        RestTemplate restTemplate = new RestTemplate();
+        String xml = restTemplate.getForObject(url, String.class);
+
+        XmlMapper xmlMapper = new XmlMapper();
+        Response response = xmlMapper.readValue(xml, Response.class);
+
+        Body body = response.getBody();
+        List<Item> item = body.getItems().getItem();
+
+        List<String> mvpCipNo = item.stream()
+                .filter(Objects::nonNull)
+                .map(Item::getMvpCipNo)
+                .collect(Collectors.toList());
+
+        List<String> mvpClipSj = item.stream()
+                .filter(Objects::nonNull)
+                .map(Item::getMvpClipSj)
+                .collect(Collectors.toList());
+
+        List<String> mvpNo = item.stream()
+                .filter(Objects::nonNull)
+                .map(Item::getMvpNo)
+                .collect(Collectors.toList());
+
+        List<String> sj = item.stream()
+                .filter(Objects::nonNull)
+                .map(Item::getSj)
+                .collect(Collectors.toList());
+
+        List<String> stdPrdlstCodeNm = item.stream()
+                .filter(Objects::nonNull)
+                .map(Item::getStdPrdlstCodeNm)
+                .collect(Collectors.toList());
+
+        List<String> videoImg = item.stream()
+                .filter(Objects::nonNull)
+                .map(Item::getVideoImg)
+                .collect(Collectors.toList());
+
+        List<String> videoLink = item.stream()
+                .filter(Objects::nonNull)
+                .map(Item::getVideoLink)
+                .collect(Collectors.toList());
+
+        Map<String, Object> lecturelist = new HashMap<>();
+        lecturelist.put("mvpCipNo", mvpCipNo);
+        lecturelist.put("mvpClipSj", mvpClipSj);
+        lecturelist.put("mvpNo", mvpNo);
+        lecturelist.put("sj", sj);
+        lecturelist.put("stdPrdlstCodeNm", stdPrdlstCodeNm);
+        lecturelist.put("videoImg", videoImg);
+        lecturelist.put("videoLink", videoLink);
+        lecturelist.put("numOfRows", body.getItems().getNumOfRows());
+        lecturelist.put("pageNo", body.getItems().getPageNo());
+        lecturelist.put("totalCount", body.getItems().getTotalCount());
+
+        return lecturelist;
+    }
+
 }

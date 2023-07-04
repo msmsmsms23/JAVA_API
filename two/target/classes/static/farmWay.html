@@ -54,67 +54,126 @@
 <!--    });-->
 <!--  </script>-->
   <script>
-    $(document).ready(function() {
-      $.ajax({
-        url: '/farm/searchCode?apiKey=20211201U0GJSNFZOAQLI2BJOT5BWW',
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-          response.codeNm.forEach(function(codeNm, index) {
-            var code = response.code[index];
-            $("#dropBox").append("<option value='" + code + "'>" + codeNm + "</option>");
-          });
-        },
-        error: function(error) {
-          console.log(error);
-        }
+  $(document).ready(function() {
+  var currentPage = 1; // 현재 페이지 초기값 설정
+  var pageSize = 10; // 페이지당 아이템 수
+
+  loadBoardData(currentPage, pageSize); // 페이지 로드 시 게시판 데이터 가져오기
+
+  $.ajax({
+    url: '/farm/searchCode?apiKey=20211201U0GJSNFZOAQLI2BJOT5BWW',
+    method: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      response.codeNm.forEach(function(codeNm, index) {
+        var code = response.code[index];
+        $("#dropBox").append("<option value='" + code + "'>" + codeNm + "</option>");
       });
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
 
-      $("form").submit(function(event) {
-        event.preventDefault();
-        var code = $("#dropBox").val();
-        var apiKey = "20211201U0GJSNFZOAQLI2BJOT5BWW";
+  $("form").submit(function(event) {
+    event.preventDefault();
+    var code = $("#dropBox").val();
 
-        if (!code) {
-          $("#test").text("조회한 정보가 없습니다.");
-          return;
+    if (!code) {
+      $("#test").text("조회한 정보가 없습니다.");
+      return;
+    }
+
+    currentPage = 1; // 검색 시 첫 번째 페이지로 초기화
+    loadBoardData(currentPage, pageSize, code);
+  });
+
+  // 이전 페이지로 이동
+  $("#prevPageBtn").click(function() {
+    if (currentPage > 1) {
+      currentPage--;
+      loadBoardData(currentPage, pageSize);
+    }
+  });
+
+  // 다음 페이지로 이동
+  $("#nextPageBtn").click(function() {
+    currentPage++;
+    loadBoardData(currentPage, pageSize);
+  });
+});
+
+// 게시판 데이터를 가져오고 페이징을 생성하는 함수
+function loadBoardData(page, pageSize, code) {
+  $.ajax({
+    url: '/farm/lecture?apiKey=20211201U0GJSNFZOAQLI2BJOT5BWW&mainCategory=' + (code || '') + '&page=' + page + '&pageSize=' + pageSize,
+    method: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      if (response.mvpClipSj) {
+        $("#test").empty();
+        for (var index = 0; index < response.mvpClipSj.length; index++) {
+          var mvpCipNo = response.mvpCipNo[index];
+          var mvpClipSj = response.mvpClipSj[index];
+          var mvpNo = response.mvpNo[index];
+          var sj = response.sj[index];
+          var videoImg = response.videoImg[index];
+          var videoLink = response.videoLink[index];
+
+          // 결과를 동적으로 생성하여 출력합니다.
+          var resultItem = "<li>" +
+            "<h3>" + mvpClipSj + "</h3>" +
+            "<p>" + sj + "</p>" +
+            "<a href='" + videoLink + "'>" +
+            "<img src='" + videoImg + "' alt='" + mvpClipSj + "'>" +
+            "</a>" +
+            "</li>";
+
+          $("#test").append(resultItem);
         }
 
-        $.ajax({
-          url: '/farm/lecture?apiKey=20211201U0GJSNFZOAQLI2BJOT5BWW&mainCategory=' + code,
-          method: 'GET',
-          dataType: 'json',
-          success: function(response) {
-          if (response.mvpClipSj) {
-            $("#test").empty();
-            for (var index = 0; index < response.mvpClipSj.length; index++) {
-              var mvpCipNo = response.mvpCipNo[index];
-              var mvpClipSj = response.mvpClipSj[index];
-              var mvpNo = response.mvpNo[index];
-              var sj = response.sj[index];
-              var videoImg = response.videoImg[index];
-              var videoLink = response.videoLink[index];
+        // 페이지 네비게이션을 생성합니다.
+        generatePagination(response.numOfRows, response.totalCount, page);
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
 
-              // 결과를 동적으로 생성하여 출력합니다.
-              var resultItem = "<li>" +
-                "<h3>" + mvpClipSj + "</h3>" +
-                "<p>" + sj + "</p>" +
-                "<a href='" + videoLink + "'>" +
-                "<img src='" + videoImg + "' alt='" + mvpClipSj + "'>" +
-                "</a>" +
-                "</li>";
+// 페이지네이션을 생성하는 함수
+function generatePagination(pageSize, totalCount, currentPage) {
+  var totalPages = Math.ceil(totalCount / pageSize);
 
-              $("#test").append(resultItem);
-            }
-          }
-        },
-          error: function(error) {
-            console.log(error);
-          }
-        });
-      });
-    });
+  $("#pagination").empty();
+
+  if (currentPage > 1) {
+    $("#pagination").append('<button id="prevPageBtn">이전</button>');
+  }
+
+  for (var page = 1; page <= totalPages; page++) {
+    if (page === currentPage) {
+      $("#pagination").append('<button class="active">' + page + '</button>');
+    } else {
+      $("#pagination").append('<button>' + page + '</button>');
+    }
+  }
+
+  if (currentPage < totalPages) {
+    $("#pagination").append('<button id="nextPageBtn">다음</button>');
+  }
+
+  // 페이지 버튼 클릭 시 해당 페이지 데이터를 로드합니다.
+  $("#pagination button").click(function() {
+    var selectedPage = $(this).text();
+    currentPage = parseInt(selectedPage);
+    loadBoardData(currentPage, pageSize, $("#dropBox").val());
+  });
+}
+
   </script>
+
 </head>
 <body>
 <a href="ttokbooMain.html" target="_self">
@@ -142,9 +201,10 @@
     <input type="submit" value="검색" id="search">
   </form>
 </section>
+<ul id="test"></ul>
+<div id="pagination">
+  <ul id="paginationList"></ul>
+</div>
 
-<section>
-  <ul id="test"></ul>
-</section>
 </body>
 </html>

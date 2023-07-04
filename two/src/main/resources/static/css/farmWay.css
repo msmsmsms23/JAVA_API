@@ -12,8 +12,20 @@
 }
 
 #test li a img {
-    width: 500px;
-    height: auto;
+  width: 500px;
+  height: auto;
+}
+#test {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  text-align: center;
+}
+
+#test li {
+  flex: 0 0 50%; /* 각 li 요소를 컨테이너 폭의 50%로 설정합니다. */
+  list-style-type: none;
+  margin-top: 50px;
 }
 
 .header img {

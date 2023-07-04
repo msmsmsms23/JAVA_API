@@ -82,6 +82,7 @@ public class FarmController {
 
         return result1;
 
+//        return sjList;
     }
 
     //---------3번 (농작업일정 상세 정보 목록)
@@ -160,78 +161,15 @@ public class FarmController {
         return lecturemv;
     }
 
-//    @GetMapping("/lecture")
-//    @ApiOperation(value = "2-(2) 주제별 짧은 기술 동영상 목록")
-//    @ResponseBody
-//    public Map<String, Object> lecture(@RequestParam String apiKey) throws Exception {
-//        String url = "http://api.nongsaro.go.kr/service/curationMvp/curationMvpList"
-//                + "?apiKey=" + apiKey;
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//        String xml = restTemplate.getForObject(url, String.class);
-//
-//        XmlMapper xmlMapper = new XmlMapper();
-//        Response response = xmlMapper.readValue(xml, Response.class);
-//
-//        Body body = response.getBody();
-//        List<Item> item = body.getItems().getItem();
-//
-//        List<String> mvpCipNo = item.stream()
-//                .filter(Objects::nonNull)
-//                .map(Item::getMvpCipNo)
-//                .collect(Collectors.toList());
-//
-//        List<String> mvpClipSj = item.stream()
-//                .filter(Objects::nonNull)
-//                .map(Item::getMvpClipSj)
-//                .collect(Collectors.toList());
-//
-//        List<String> mvpNo = item.stream()
-//                .filter(Objects::nonNull)
-//                .map(Item::getMvpNo)
-//                .collect(Collectors.toList());
-//
-//        List<String> sj = item.stream()
-//                .filter(Objects::nonNull)
-//                .map(Item::getSj)
-//                .collect(Collectors.toList());
-//
-//        List<String> stdPrdlstCodeNm = item.stream()
-//                .filter(Objects::nonNull)
-//                .map(Item::getStdPrdlstCodeNm)
-//                .collect(Collectors.toList());
-//
-//        List<String> videoImg = item.stream()
-//                .filter(Objects::nonNull)
-//                .map(Item::getVideoImg)
-//                .collect(Collectors.toList());
-//
-//        List<String> videoLink = item.stream()
-//                .filter(Objects::nonNull)
-//                .map(Item::getVideoLink)
-//                .collect(Collectors.toList());
-//
-//        Map<String, Object> lecturelist = new HashMap<>();
-//        lecturelist.put("mvpCipNo", mvpCipNo);
-//        lecturelist.put("mvpClipSj", mvpClipSj);
-//        lecturelist.put("mvpNo", mvpNo);
-//        lecturelist.put("sj", sj);
-//        lecturelist.put("stdPrdlstCodeNm", stdPrdlstCodeNm);
-//        lecturelist.put("videoImg", videoImg);
-//        lecturelist.put("videoLink", videoLink);
-//        lecturelist.put("numOfRows", body.getItems().getNumOfRows());
-//        lecturelist.put("pageNo", body.getItems().getPageNo());
-//        lecturelist.put("totalCount", body.getItems().getTotalCount());
-//
-//        return lecturelist;
-//    }
     @GetMapping("/lecture")
     @ApiOperation(value = "2-(2) 주제별 짧은 기술 동영상 목록")
     @ResponseBody
-    public Map<String, Object> lecture(@RequestParam String apiKey, String mainCategory) throws Exception {
+    public Map<String, Object> lecture(@RequestParam String apiKey, @RequestParam String mainCategory,
+                                       @RequestParam(defaultValue = "1") int page) throws Exception {
         String url = "http://api.nongsaro.go.kr/service/curationMvp/curationMvpList"
                 + "?apiKey=" + apiKey
-                + "&mainCategory=" + mainCategory;
+                + "&mainCategory=" + mainCategory
+                + "&pageNo=" + page;
 
         RestTemplate restTemplate = new RestTemplate();
         String xml = restTemplate.getForObject(url, String.class);

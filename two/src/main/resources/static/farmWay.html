@@ -7,6 +7,52 @@
   <title>농작물 농사 방법</title>
   <link rel="stylesheet" href="./css/farmWay.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--  <script>-->
+<!--    $(document).ready(function() {-->
+<!--      $.ajax({-->
+<!--        url: '/farm/searchCode?apiKey=20211201U0GJSNFZOAQLI2BJOT5BWW',-->
+<!--        method: 'GET',-->
+<!--        dataType: 'json',-->
+<!--        success: function(response) {-->
+<!--          response.codeNm.forEach(function(codeNm, index) {-->
+<!--            var code = response.code[index];-->
+<!--            $("#dropBox").append("<option value='" + code + "'>" + codeNm + "</option>");-->
+<!--          });-->
+<!--        },-->
+<!--        error: function(error) {-->
+<!--          console.log(error);-->
+<!--        }-->
+<!--      });-->
+
+<!--      $("form").submit(function(event) {-->
+<!--        event.preventDefault();-->
+<!--        var code = $("#dropBox").val();-->
+<!--        var apiKey = "20211201U0GJSNFZOAQLI2BJOT5BWW";-->
+
+<!--        if (!code) {-->
+<!--          $("#test").text("조회한 정보가 없습니다.");-->
+<!--          return;-->
+<!--        }-->
+
+<!--        $.ajax({-->
+<!--          url: '/farm/lecture?apiKey=20211201U0GJSNFZOAQLI2BJOT5BWW&mainCategory=' + code,-->
+<!--          method: 'GET',-->
+<!--          dataType: 'json',-->
+<!--          success: function(response) {-->
+<!--            if (response.sj) {-->
+<!--              $("#test").empty();-->
+<!--              response.sj.forEach(function(sj) {-->
+<!--                $("#test").append("<li>" + sj + "</li>");-->
+<!--              });-->
+<!--            }-->
+<!--          },-->
+<!--          error: function(error) {-->
+<!--            console.log(error);-->
+<!--          }-->
+<!--        });-->
+<!--      });-->
+<!--    });-->
+<!--  </script>-->
   <script>
     $(document).ready(function() {
       $.ajax({
@@ -14,47 +60,69 @@
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-            response.codeNm.forEach(function(codeNm, index) {
-              var code = response.code[index];
-              $("#dropBox").append("<option value='" + code + "'>" + codeNm + "</option>");
-            });
-
+          response.codeNm.forEach(function(codeNm, index) {
+            var code = response.code[index];
+            $("#dropBox").append("<option value='" + code + "'>" + codeNm + "</option>");
+          });
         },
         error: function(error) {
           console.log(error);
         }
       });
-    });
 
+      $("form").submit(function(event) {
+        event.preventDefault();
+        var code = $("#dropBox").val();
+        var apiKey = "20211201U0GJSNFZOAQLI2BJOT5BWW";
 
-$(document).ready(function() {
-
-    $.ajax({
-      url: '/farm/lecture?apiKey=20211201U0GJSNFZOAQLI2BJOT5BWW',
-      method: 'GET',
-      dataType: 'json',
-      success: function(response) {
-        if (response.sj) {
-          response.sj.forEach(function(sj) {
-            $("#test").append("<li>" + sj + "</li>");
-          });
+        if (!code) {
+          $("#test").text("조회한 정보가 없습니다.");
+          return;
         }
-      },
-      error: function(error) {
-        console.log(error);
-      }
+
+        $.ajax({
+          url: '/farm/lecture?apiKey=20211201U0GJSNFZOAQLI2BJOT5BWW&mainCategory=' + code,
+          method: 'GET',
+          dataType: 'json',
+          success: function(response) {
+          if (response.mvpClipSj) {
+            $("#test").empty();
+            for (var index = 0; index < response.mvpClipSj.length; index++) {
+              var mvpCipNo = response.mvpCipNo[index];
+              var mvpClipSj = response.mvpClipSj[index];
+              var mvpNo = response.mvpNo[index];
+              var sj = response.sj[index];
+              var videoImg = response.videoImg[index];
+              var videoLink = response.videoLink[index];
+
+              // 결과를 동적으로 생성하여 출력합니다.
+              var resultItem = "<li>" +
+                "<h3>" + mvpClipSj + "</h3>" +
+                "<p>" + sj + "</p>" +
+                "<a href='" + videoLink + "'>" +
+                "<img src='" + videoImg + "' alt='" + mvpClipSj + "'>" +
+                "</a>" +
+                "</li>";
+
+              $("#test").append(resultItem);
+            }
+          }
+        },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      });
     });
-
-});
-
-
   </script>
 </head>
 <body>
-<header class="header">
-  <img src="img/farmer.png">
-  <h3><span>똑</span>부러지는 농<span>부</span>들의 선택</h3>
-</header>
+<a href="ttokbooMain.html" target="_self">
+  <header class="header">
+    <img src="img/farmer.png">
+    <h3><span>똑</span>부러지는 농<span>부</span>들의 선택</h3>
+  </header>
+</a>
 
 <header class="title">
   <h1>농작물 농사 방법</h1>

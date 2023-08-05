@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재배 상세정보</title>
+    <link rel="stylesheet" href="./css/recommend.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+<a href="ttokbooMain.html" target="_self">
+    <header class="header">
+        <img src="img/farmer.png">
+        <h3><span>똑</span>부러지는 농<span>부</span>들의 선택</h3>
+    </header>
+</a>
+
+<header class="title">
+    <h1 id="cropName"></h1>
+</header><hr>
+
+<section>
+    <ul id="activityList2"></ul>
+</section>
+
+<script>
+    $(document).ready(function() {
+      // URL에서 cntntsNo 매개변수 가져오기
+      var urlParams = new URLSearchParams(window.location.search);
+      var cntntsNo = urlParams.get('cntntsNo');
+      var sj = urlParams.get('sj');
+
+      $("#cropName").text(sj);
+
+      $.ajax({
+        url: '/farm/getDetail?apiKey=20230601JKDXVD39FWGMF0PJBPWMA&cntntsNo=' + cntntsNo,
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+          response.forEach(function(activity) {
+            var activityElement = $("<div>").html(activity);
+
+            // 모든 태그 사이에 간격 추가
+            activityElement.find('*').css('margin-bottom', '5px');
+
+            // h6 태그를 h2 태그로 변경하고 글자색을 녹색으로 설정
+            activityElement.find('h6, p').each(function() {
+              var h6Text = $(this).text();
+              $(this).replaceWith('<h2>' + h6Text + '</h2>');
+            });
+
+            // table 태그에 속성 추가
+            activityElement.find('table').attr({
+              'border': '1',
+              'cellpadding': '10',
+              'cellspacing': '0'
+            });
+
+            // th 태그에 배경색 추가
+            activityElement.find('th').css('background-color', '#C4D7B2');
+
+            $("#activityList2").append(activityElement.html());
+          });
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    });
+
+</script>
+
+</body>
+</html>

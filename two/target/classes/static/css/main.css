@@ -1,0 +1,116 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
+
+.header {
+    display: flex;
+    z-index: 2;
+    position: absolute;
+}
+
+.header img {
+    float:left;
+    margin: 20px;
+    width: 50px;
+}
+
+.header h3{
+    float:left;
+    font-weight:bolder;
+    color:rgb(158, 158, 158)
+}
+
+.header span {
+    color:rgb(39,174,96);
+}
+
+.title h1 {
+    color:black;
+    font-style: italic;
+    align-items: center;
+    display: block;
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    z-index: 1;
+}
+
+a {
+    text-decoration: none;
+}
+
+hr {
+    margin: 20px 20px;
+    border: 1px solid gray;
+}
+
+.category {
+    text-align: center;
+    align-items: center;
+    margin: auto;
+}
+
+.category::after{
+    display:block;
+    clear:both;
+    content:"";
+}
+
+.category header h2{ /*내게 필요한 정보는?*/
+    color:gray;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.category section { /*카테고리 버튼*/
+    float:left;
+    margin: 100px;
+    height: 400px;
+    width: 245px;
+    background-color:rgba(183, 204, 161, 0.33);
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.26);
+}
+
+#categoryButton {
+    align-items: center;
+    margin: auto;
+}
+
+.category h3{
+    text-align: center;
+    padding-top: 60px;
+
+}
+
+.category img{
+    padding-top: 50px;
+}
+
+.category hr{
+    width: 180px;
+    margin: 30px  30px  0px;
+    border: 1px solid gray;
+}
+
+.category p{
+    text-align: center;
+}
+
+
+#mainCate {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+}

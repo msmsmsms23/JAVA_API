@@ -1,0 +1,131 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+    margin:0px;
+    padding:0px;
+}
+
+/* pagination 버튼들 가운데 정렬 */
+#pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* pagination 버튼들 사이 간격 주기 */
+#pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* 선택된(active) 버튼 스타일 적용 */
+#pagination button.active {
+  background-color: #FAF0D7;
+    color: #949494;
+}
+
+/* pagination 버튼들에 마우스 호버 효과 적용 */
+#pagination button:hover {
+  background-color: #FAF0D7;
+  color: #949494;
+}
+
+/* #test 요소의 기본 리스트 스타일 제거 */
+#test {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  text-align: center;
+  padding: 0;
+  list-style: none;
+}
+
+#test li {
+  flex: 0 0 50%;
+  list-style-type: none;
+  margin-top: 50px;
+  padding: 0;
+}
+
+/* #test 내부의 이미지 크기 조정 */
+#test li a img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+/* header에 대한 추가적인 스타일 */
+.header img {
+  float: left;
+  margin: 20px;
+  width: 50px;
+}
+
+.header h3 {
+  float: left;
+  padding-top: 30px;
+  font-weight: bolder;
+  color: rgb(158, 158, 158);
+}
+
+.header span {
+  color: rgb(39, 174, 96);
+}
+
+.title h1 {
+  padding-top: 20px;
+  padding-left: 680px;
+  color: black;
+}
+
+hr {
+  width: 1500px;
+  margin: 20px 20px;
+  border: 1px solid gray;
+}
+
+#dropBox {
+  float: left;
+  margin-top: 50px;
+  margin-left: 500px;
+}
+
+#content {
+  margin-top: 50px;
+  margin-left: 20px;
+  height: 40px;
+  width: 400px;
+}
+
+#search {
+  position: absolute;
+  margin-top: 50px;
+  margin-left: 2px;
+  height: 45px;
+  width: 40px;
+  background-color: black;
+  color: white;
+}
+
+#search:hover {
+  background-color: gray;
+  color: white;
+}
+
+#dropBox {
+  margin-top: 65px;
+}
+
+section iframe {
+  margin-top: 50px;
+  margin-left: 500px;
+}

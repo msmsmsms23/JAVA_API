@@ -1,12 +1,3 @@
-/** {
-    margin:0px;
-    padding:0px;
-}*/
-/*.header::after{
-    display:block;
-    clear:both;
-    content:"";
-}*/
 @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -18,6 +9,13 @@
     font-family: 'Pretendard-Regular';
 }
 
+
+.header {
+    display: flex;
+    z-index: 2;
+    position: absolute;
+}
+
 .header img {
     float:left;
     margin: 20px;
@@ -26,25 +24,34 @@
 
 .header h3{
     float:left;
-    padding-top: 30px;
     font-weight:bolder;
     color:rgb(158, 158, 158)
 }
+
 .header span {
     color:rgb(39,174,96);
 }
 
-
 .title h1 {
-    padding-top: 20px;
-    padding-left: 680px;
     color:black;
     font-style: italic;
+    align-items: center;
+    display: block;
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    z-index: 1;
+}
+
+a {
+    text-decoration: none;
 }
 
 hr {
+    margin: 20px 20px;
     border: 1px solid gray;
-    margin-top: 40px;
 }
 
 .category {
@@ -66,18 +73,19 @@ hr {
 }
 
 .category section { /*카테고리 버튼*/
-    /*display: inline-block;*/
     float:left;
-    /*margin-top: 50px;
-    margin-left: 110px;*/
     margin: 100px;
-    margin-top: 30px;
     height: 400px;
     width: 245px;
     background-color:rgba(183, 204, 161, 0.33);
     text-align: center;
     border-radius: 15px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.26);
+}
+
+#categoryButton {
+    align-items: center;
+    margin: auto;
 }
 
 .category h3{
@@ -92,7 +100,6 @@ hr {
 
 .category hr{
     width: 180px;
-    /*margin: 0px auto;*/
     margin: 30px  30px  0px;
     border: 1px solid gray;
 }
@@ -100,6 +107,7 @@ hr {
 .category p{
     text-align: center;
 }
+
 
 #mainCate {
     display: inline-flex;
